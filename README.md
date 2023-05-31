@@ -1,105 +1,104 @@
-
-## **VARIABILI**
+## **VARIABLES**
 ```dart
 String ill
 String recover
 String death
 String earth
 ```
-Stringhe contenenti il percorso dei png omonimi
+String containing the path to the homonymous pngs
 ##
 ```dart
 List<Data> dataList
 ```
-Lista che contiene tutti i dati del json del sito
+List containing all the json data of the site
 ##
 ```dart
 String country
 ```
-Stringa contenente il nome del paese da cercare. Di default è vuota
+String containing the name of the country to search for. This is empty by default
 ##
 ```dart
 List<String> countries
 ```
-Lista di stringhe che contiene i paesi inseriti dal metodo **_autocomplete()_**
+List of strings containing the countries entered by the **_autocomplete()_** method
 ##
 ```dart
 TextEditingController text
 ```
-Serve per modificare ciò che è stato scritto all'interno di un TextField
-## **METODI**
+Used to edit what has been written inside a TextField
+## **METHODS**
 ```dart
 Widget buildTextField()
 ```
-Questo metodo costruisce un TextField, che ha un IconButton, che ha come icona una ImageIcon, una icona contenente un png, creato grazie alla classe AssetImage e alla varibile _earth_. Quando il bottone viene cliccato, imposta le variabile  _country_ e _text_ vuote.
+This method builds a TextField, which has an IconButton, which has as its icon an ImageIcon, an icon containing a png, created using the AssetImage class and the _earth_ variable. When the button is clicked, it sets the variables _country_ and _text_ empty.
 
-Quando viene cambiato il paese inserito all'interno, va a richiamare il metodo
+When the country entered inside is changed, it calls the method
 **_autocomplete(country)_**.
 
-Quando il paese inserito è inviato, alla variabile _country_ viene impostato il paese cercato.
+When the country entered is sent, the _country_ variable is set to the country searched for.
 ##
 ```dart
 void autocomplete(String country)
 ```
-E' un metodo che serve per l'autocompletamento, infatti viene chiamato ogni volta che si sta inserendo il nome di un paese nel TextField. 
+This method is used for autocomplete, and is called whenever a country name is being entered into the TextField. 
 
-La prima cosa che fa è svuotare la lista _countries_, poi crea una variabile chiamata _endIndex_ a cui viene applicato un valore pari alla lunghezza del nome del paese inserito.
+The first thing it does is empty the _countries_ list, then it creates a variable called _endIndex_ to which a value equal to the length of the entered country name is applied.
 
-Nel caso in cui il nome del paese non sia vuoto, allora va a confrontare tutti i paesi all'interno del _dataList_.
+In case the country name is not empty, then it goes and compares all the countries within the _dataList_.
 
-Questo metodo non prende tutto il nome del paese, ma solo le lettere comprese tra 0 e _endIndex_, e nel caso in cui la porzione del nome del paese sia uguale al nome inserito nel TextField, allora il nome intero del paese viene aggiunto all'interno della lista _countries_
+This method does not take the entire country name, but only the letters between 0 and _endIndex_, and in the event that the portion of the country name is equal to the name entered in the TextField, then the entire country name is added within the _countries_ list
 ##
 ```dart
 Widget buildList()
 ```
-Questo metodo viene chiamato solo nel caso in cui la lista _countries_ non sia vuota.
+This method is only called if the _countries_ list is not empty.
 
-Quando viene richiamato costruisce una ListView che contiene una GestureDetector,  con all'interno i nomi dei paesi contenuti nella lista _countries_.
+When called, it builds a ListView containing a GestureDetector, with the names of the countries contained in the _countries_ list inside.
 
-E' stato utilizzato un GestureDetector, così che quando il nome di un paese viene cliccato, allora alle variabili _country_ e _text_ vengono assegnati il nome del paese.
+A GestureDetector is used, so that when the name of a country is clicked, then the variables _country_ and _text_ are assigned the name of the country.
 
-Infine la lista _countries_ viene svuotata, così che l'autocompletamento della parola  non sia più visibile e la tastiera viene chiusa
+Finally the _countries_ list is emptied, so that the word autocompletion is no longer visible and the keyboard is closed
 ##
 ```dart
 Widget buildCountry()
 ```
-Questo metodo serve a mostrare il nome del paese che è stato cercato.
+This method is used to display the name of the country being searched for.
 			
-Nel caso in cui il nome sia vuoto, allora viene scritto "All Countries"
+In the case where the name is empty, then "All Countries" is written
 
-Nel caso in cui il nome del paese sia inesistente, allora viene scritto "This country doesn't exists"
+In the case where the country name is non-existent, then "This country doesn't exist" is written
 ##
 ```dart
 Widget buildCases()
 Widget buildDeaths()
 Widget buildRecovered()
 ```
-Questi metodi servono a mostrare gli infetti, le morti e i guariti all'interno di un container.
+These methods are used to display the infected, dead and healed within a container.
 
-Richiamano i metodi **_buildText(String type)_** e **_buildInfo(String type)_**
+They call the methods **_buildText(String type)_** and **_buildInfo(String type)_**.
 ##
 ```dart
 Widget buildText(String type)
 ```
-in base alla stringa "type", mostra una stringa con scritto "Cases", "Deaths"  oppure "Recovered" e al di sotto della stringa, i png _ill.png_, _deaths.png_  oppure _recovered.png_
+Based on the string "type", displays a string saying "Cases", "Deaths" or "Recovered" and below the string, the png _ill.png_, _deaths.png_ or _recovered.png_
 ##
 ```dart
 Widget buildInfo(String type)
 ```
-In base alla stringa _type_, vengono mostrati dei valori ricavati grazie all'utilizzo del metodo 
+Based on the string _type_, values are displayed using the method 
 **_getTotal(String type, String country)_**
 ##
 ```dart
 int getTotal(String type, String country)
 ```
-Serve a ricavare i valori degli infetti, delle morti e dei guariti, in base al paese 
-inserito. Per fare ciò, abbiamo bisogno della posizione del paese selezionato, all'interno
-della lista _dataList_, quindi viene utilizzato un metodo di supporto, chiamato **_getIndex(String country)_**
+Used to get the values of infected, dead and cured, based on the country 
+entered. To do this, we need the position of the selected country in the
+of the _dataList_, so a support method is used, called **_getIndex(String country)_**.
 
-Nel caso in cui l'indice sia pari a -2, allora il paese inserito non esiste, se l'indice è pari a -1 allora bisogna ricavare i dati di tutti i paesi, mentre se l'indice ha un numero diverso da -2 e -1, si ricavano i dati di quel determinato paese
+If the index is equal to -2 then the country entered does not exist, if the index is equal to -1 then we need to get the data for all countries, if the index has a number other than -2 and -1 then we get the data for that particular country
 ##
 ```dart
 int getIndex(String country)
 ```
-l'indice di default è -2, se l'argomento country è vuoto, allora l'index viene posto a -1, mentre se il paese inserito esiste, la variabile index assume un valore pari alla posizione di quel paese all'interno della lista _dataList_. 
-Infine index viene restituito.
+The default index is -2, if the country argument is empty, then the index is set to -1, and if the country entered exists, the index variable takes a value equal to the position of that country in the _dataList_. 
+Finally, index is returned.
